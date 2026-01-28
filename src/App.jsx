@@ -1,18 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'; // Added imports
 import Login from "./Components/login";
-function App() {
-  const [count, setCount] = useState(0)
+import Logout from "./Components/logout";
+import './App.css';
 
+function App() {
   return (
-    <>
-    <div>
-      <Login />
-    </div>  
-    </>
-  )
+    <BrowserRouter>
+      <div className="App">
+        <Routes>
+          {/* Default to Login if the path is just "/" */}
+          <Route path="/" element={<Login />} /> 
+          <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
