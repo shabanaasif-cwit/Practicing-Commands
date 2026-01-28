@@ -1,29 +1,20 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // 1. Import useNavigate
+import { useNavigate, Link } from "react-router-dom"; // Added Link import
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   
-  const navigate = useNavigate(); // 2. Initialize the hook
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
-
-    const dummyUser = {
-      email: "admin@example.com",
-      password: "123456",
-    };
+    const dummyUser = { email: "admin@example.com", password: "123456" };
 
     if (email === dummyUser.email && password === dummyUser.password) {
       setMessage("✅ Login successful");
-      
-      // 3. Redirect to the logout (or dashboard) page after 1.5 seconds
-      setTimeout(() => {
-        navigate("/logout");
-      }, 1500);
-      
+      setTimeout(() => navigate("/logout"), 1500);
     } else {
       setMessage("❌ Invalid email or password");
     }
@@ -52,13 +43,20 @@ export default function Login() {
           required
         />
 
-        {/* Changed to type="submit" for better accessibility */}
         <button
           type="submit"
           className="w-full rounded bg-blue-500 py-2 text-white hover:bg-blue-600 transition-colors"
         >
           Login
         </button>
+
+        {/* --- NEW SIGNUP LINK SECTION --- */}
+        <p className="mt-4 text-center text-sm text-gray-600">
+          Don't have an account?{" "}
+          <Link to="/signup" className="text-blue-500 hover:underline font-semibold">
+            Sign Up
+          </Link>
+        </p>
 
         {message && (
           <p className={`mt-3 text-center text-sm ${message.includes('✅') ? 'text-green-600' : 'text-red-600'}`}>
